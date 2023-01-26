@@ -4,32 +4,41 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <link rel="stylesheet" href="style.css" />
+
+    <script src="./script.js" defer></script>
+
     <title>Registrieren</title>
   </head>
   <body>
     <h1>Register</h1>
-    <form action="post">
+    <form onsubmit="handleForm(e)">
       <label>
         Email:
         <br />
-        <input type="text" placeholder=" add your email" />
+        <input id="email" type="email" placeholder=" add your email" />
       </label>
 
       <label>
         password:
         <br />
 
-        <input type="password" placeholder=" add your email" />
+        <input id="password" type="password" placeholder=" add your email" />
       </label>
       <label>
         repeat password:
         <br />
 
-        <input type="password" placeholder=" repeat your email" />
+        <input
+          id="password2"
+          type="password"
+          placeholder=" repeat your email"
+        />
       </label>
       <label>
         <button type="submit">Register</button>
+        <p id="message"></p>
       </label>
     </form>
   </body>
