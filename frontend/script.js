@@ -13,8 +13,9 @@
 //   }
 // };
 
-function handleForm(e) {
-  e.preventDefault();
+function handleForm(event) {
+  alert("Hello");
+  event.preventDefault();
 
   const email = document.querySelector("#email");
   const password1 = document.querySelector("#password");
@@ -37,13 +38,16 @@ function handleForm(e) {
     }),
   })
     .then((res) => {
+      console.log(res);
       if (res.status != 201) {
         throw new Error("Registrierung nicht erfolgreich");
       } else {
         return res.json();
       }
     })
-    .then((json) => (window.location.href = "index.html"))
+    .then((json) => {
+      window.location.href = "index.html";
+    })
     .catch((err) => {
       message.innerText = err.message;
     });

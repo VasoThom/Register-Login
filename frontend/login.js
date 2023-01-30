@@ -1,5 +1,5 @@
-function handleForm(e) {
-  e.preventDefault();
+function handleForm(event) {
+  event.preventDefault();
 
   const email = document.querySelector("#email");
   const password = document.querySelector("#password");
