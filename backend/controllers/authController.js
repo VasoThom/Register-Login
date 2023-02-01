@@ -23,11 +23,12 @@ export const createRegister = async (req, res, next) => {
 export const createLogin = async (req, res, next) => {
   const User = await authModel.getOne({ email: req.body.email });
 
-  const payload = {
-    email: req.body.email,
-  };
-  const token = jwt.sign(payload, process.env.TOKEN_SECRET);
-  console.log(token);
+  function signOnToken(payload) {
+    const token = jwt.sign(payload, process.env.TOKEN_SECRET);
+    console.log(token);
+    return token;
+  }
+
   try {
     if (!User) {
       const err = new Error(
@@ -43,21 +44,32 @@ export const createLogin = async (req, res, next) => {
     );
 
     if (passwordCompare) {
+      const signToken = signOnToken({ email: req.body.email, id: User._id });
+      //cookies
+      const expDate = 1000 * 60 * 60 * 24 * 365;
+      res.cookie("loggedin", signToken, {
+        sameSite: "lax",
+        maxAge: expDate,
+        httpOnly: true,
+      });
+
       res.json({
+        message: "Erfolgleich eingeloggt",
         email: req.body.email,
         id: User._id,
+        signToken,
       });
-      function verifyToken(token) {
-        const verified = jwt.verify(token, process.env.TOKEN_SECRET);
-        console.log(verified);
-      }
-      setTimeout(() => {
-        verifyToken(token);
-        console.log("jwt expired");
-      }, 3000);
+      // function verifyToken(token) {
+      //   const verified = jwt.verify(token, process.env.TOKEN_SECRET);
+      //   console.log(verified);
+      // }
+      // setTimeout(() => {
+      //   verifyToken(token);
+      //   console.log("jwt expired");
+      // }, 3000);
     } else {
       const err = new Error("Login nicht erfolgreich");
-      err.statusCode = 400;
+      err.statusCode = 401;
       throw err;
     }
   } catch (err) {

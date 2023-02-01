@@ -27,7 +27,7 @@ function handleForm(event) {
     return;
   }
 
-  fetch("http://localhost:4060/auth/register", {
+  fetch("http://localhost:4100/auth/register", {
     method: "POST",
     headers: {
       "content-Type": "application/json",

@@ -8,7 +8,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const app = express();
-app.use(cors({ origin: "*" }));
+app.use(cors({ origin: "http://127.0.0.1:5500", credentials: true }));
 app.use((req, res, next) => {
   console.log(req.method, req.url);
   next();

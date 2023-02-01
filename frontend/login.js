@@ -4,7 +4,7 @@ function handleForm(event) {
   const email = document.querySelector("#email");
   const password = document.querySelector("#password");
 
-  fetch("http://localhost:4060/auth/login", {
+  fetch("http://localhost:4100/auth/login", {
     method: "POST",
     headers: {
       "content-Type": "application/json",
